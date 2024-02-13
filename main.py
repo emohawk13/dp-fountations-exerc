@@ -1,49 +1,28 @@
-def print_file_contents_using_readline():
-    with open('quotes.txt', 'r') as file:
-        line = file.readline()
-        if line:
-            print(line, end='')
+from os import listdir
+import os
 
-def print_file_contents_using_readlines():
-    with open('quotes.txt', 'r') as file:
-        lines = file.readlines()
-        for line in lines:
-            print(line, end='')
 
-def print_file_contents_using_readlines_alt():
-    with open('quotes.txt', 'r') as file:
-        lines = file.readlines()
-        print(''.join(lines), end='')
+print(listdir())
 
-def print_file_contents_using_for_loop():
-    with open('quotes.txt', 'r') as file:
-        for line in file:
-            print(line, end='')
+file_finder = os.listdir()
 
-def main():
-    while True:
-        print("\nMenu:")
-        print("1. Print file contents using readline()")
-        print("2. Print file contents using readlines()")
-        print("3. Print file contents using for loop")
-        print("4. Print using readlines() without using a loop")
-        print("5. Exit")
+for filepath in file_finder:
+    if os.path.isdir(filepath):
+        print("/" + filepath)
+    else:
+        print(filepath)
 
-        choice = input("Enter your choice (1/2/3/4/5): ")
+# rewrite a file
+with open("demo2.txt", "w") as myfile:
+    myfile.write("I am starting this file from scratch.")
+# append to a file
+with open("demo2.txt", "a") as myfile:
+    myfile.write("Check it out. I am writing!")
 
-        if choice == '1':
-            print_file_contents_using_readline()
-        elif choice == '2':
-            print_file_contents_using_readlines()
-        elif choice == '3':
-            print_file_contents_using_for_loop()
-        elif choice == '4':
-            print_file_contents_using_readlines_alt() 
-        elif choice == '5':
-            break
-        else:
-            print("Invalid choice. Please select a valid option.")
+with open("demo2.txt", "r") as myfile:
+    print(myfile.read())
 
-if __name__ == "__main__":
-    main()
 
+# creating a new file
+# my_file = open("a_new_file.txt", "x")
+# my_file.close()
