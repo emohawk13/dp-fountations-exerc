@@ -1,28 +1,45 @@
-from os import listdir
-import os
+def read_fruits():
+    try:
+        with open('fruits.txt', 'r') as file:
+            file_contents = file.read()
+        print(file_contents)
+    except FileNotFoundError:
+        print("File 'fruits.txt' not found.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return []
 
+def add_fruit():
+    try:
+        added_fruit = input("What kind of fruit would you like to add?")
+        with open("fruits.txt", "a") as fruit_file:
+            fruit_file.write(f"\n{added_fruit}")
+    except FileNotFoundError:
+        print("File 'fruits.txt' not found.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return []
 
-print(listdir())
+def main():
+    while True:
+        print("\nMenu:")
+        print("1. Check Fruit")
+        print("2. Add Fruit")
+        print("3. Exit")
 
-file_finder = os.listdir()
+        choice = input("Enter your choice (1/2/3): ")
 
-for filepath in file_finder:
-    if os.path.isdir(filepath):
-        print("/" + filepath)
-    else:
-        print(filepath)
+        if choice == '1':
+            fruit_lines = read_fruits()
+            if fruit_lines:
+                for line in fruit_lines:
+                    print(line, end='')
+        elif choice == '2':
+            add_fruit()
+        elif choice == '3':
+            break
+        else:
+            print("Invalid choice. Please select a valid option.")
 
-# rewrite a file
-with open("demo2.txt", "w") as myfile:
-    myfile.write("I am starting this file from scratch.")
-# append to a file
-with open("demo2.txt", "a") as myfile:
-    myfile.write("Check it out. I am writing!")
-
-with open("demo2.txt", "r") as myfile:
-    print(myfile.read())
-
-
-# creating a new file
-# my_file = open("a_new_file.txt", "x")
-# my_file.close()
+if __name__ == "__main__":
+    main()
